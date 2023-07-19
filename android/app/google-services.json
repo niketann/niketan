@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "981206625144",
+    "project_id": "fir-e-e1734",
+    "storage_bucket": "fir-e-e1734.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:981206625144:android:b9fa7f12b43c131c1f768d",
+        "android_client_info": {
+          "package_name": "com.example.niketanstore"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "981206625144-hcn0pkimvc8ob53d9nsq8g5tist2o2pl.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.niketanstore",
+            "certificate_hash": "6213165b78d3d81ce883aa7929d311ca9b6dbd64"
+          }
+        },
+        {
+          "client_id": "981206625144-s8pbf6c06nssmf7qphk5alqetvc9cv6s.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCTbSWNOOoM15R7NKmo1pu2Ss8AYtW2YG0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "981206625144-s8pbf6c06nssmf7qphk5alqetvc9cv6s.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "981206625144-7hauvsea260f3r0fp9qtaqqqfh92p562.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.niketanstore"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
