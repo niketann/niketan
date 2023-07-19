@@ -1,7 +1,7 @@
 import 'dart:developer';
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:github_sign_in/github_sign_in.dart';
 import 'package:niketanstore/home.dart';
 import 'package:niketanstore/signup.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -59,10 +59,67 @@ class _LoginScreenState extends State<LoginScreen> {
 
     print(userCredential.user?.displayName);
     if (UserCredential != null) {
-      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>HomeScreen()));
+      Navigator.pushReplacement(context,
+          MaterialPageRoute(builder: (context) => const HomeScreen()));
     }
   }
 
+  Future<GitHubSignInResult>SignInwithGithub()async{
+
+    final GitHubSignIn githubSignIn=GitHubSignIn(
+      clientId:"0449d0ce-55b4-4031-a744-8bbacd7d7c9a",
+      clientSecret: "7cbfe0ca-2330-4353-a8cf-0c495a1480f5",
+      redirectUrl:"https://fir-e-e1734.firebaseapp.com/__/auth/handler" ,
+    );
+
+    final result=await githubSignIn.signIn(context);
+    final githubAuthCredentials=GithubAuthProvider.credential(result.token!);
+
+    UserCredential userCredential= await FirebaseAuth.instance.signInWithCredential(githubAuthCredentials);
+    print(userCredential.user?.displayName);
+    return result;
+   /* if(userCredential!=null){
+      Navigator.pushReplacement(context,
+          MaterialPageRoute(builder: (context) => const HomeScreen()));
+    }*/
+
+  }
+
+  Future<void> signInWithGitHub() async {
+    try {
+      final result = await FirebaseAuth.instance.signInWithPopup(GithubAuthProvider());
+      if (result.user != null) {
+        Navigator.push(context, MaterialPageRoute(builder: (context)=>HomeScreen()));
+      } else {
+        print("Please Enter the correct !!");
+      }
+    } catch (e) {
+      print('GitHub sign in error: $e');
+    }
+  }
+
+  /*Future<UserCredential?> signInWithFacebook() async {
+    try {
+      final LoginResult result = await FacebookAuth.instance.login();
+
+      if (result.status == LoginStatus.success) {
+        final AccessToken accessToken = result.accessToken!;
+
+        final facebookAuthCredential =
+        FacebookAuthProvider.credential(accessToken.token);
+
+        return await FirebaseAuth.instance
+            .signInWithCredential(facebookAuthCredential);
+      }
+    } catch (e) {
+      print('Error during Facebook login: $e');
+    }
+
+    return null;
+  }
+*/
+
+  ///code
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height * 1;
@@ -156,7 +213,13 @@ class _LoginScreenState extends State<LoginScreen> {
                   onTap: () {
                     SignInwithGoogle();
                   },
-                  child: Text(("Login with email"))),
+              child: Text(("Login with email"))),
+              InkWell(
+                  onTap: () {
+                    signInWithGitHub();
+                    SignInwithGithub();
+                  },
+                  child: Text(("Login GitHub!")))
             ],
           ),
         ),
