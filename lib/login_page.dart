@@ -58,6 +58,9 @@ class _LoginScreenState extends State<LoginScreen> {
         await FirebaseAuth.instance.signInWithCredential(credential);
 
     print(userCredential.user?.displayName);
+    if (UserCredential != null) {
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>HomeScreen()));
+    }
   }
 
   @override
