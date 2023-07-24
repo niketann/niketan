@@ -1,10 +1,14 @@
 import 'dart:developer';
+import 'dart:ffi';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:niketanstore/login_page.dart';
+import 'package:niketanstore/phone_page.dart';
+import 'package:niketanstore/signup.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -16,12 +20,52 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   TextEditingController _namecontroller = TextEditingController();
   TextEditingController _emailcontroller = TextEditingController();
-
   @override
   void initState() {
-    // TODO: implement initState
+    FirebaseMessaging.onMessage.listen((message) {
+      ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(message.notification!.body.toString()),
+            duration: Duration(seconds: 10),
+            backgroundColor: Colors.blueGrey,
+          )
+      );
+    });
+
+    FirebaseMessaging.onMessageOpenedApp.listen((message) {
+      ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text("App was opened by a notification"),
+            duration: Duration(seconds: 10),
+            backgroundColor: Colors.blueGrey,
+          )
+      );
+    });
+    getIntialMessage();
     super.initState();
   }
+
+  void getIntialMessage()async{
+    RemoteMessage? message=await FirebaseMessaging.instance.getInitialMessage();
+
+    if(message!=null){
+
+      if(message.data["page"]=="emial"){
+        Navigator.push(context, MaterialPageRoute(builder: (context)=>SignUp()));
+      }else if(message.data["page"]=="phone"){
+        Navigator.push(context, MaterialPageRoute(builder: (context)=>PhoneScreen()));
+      }
+      else{
+        const SnackBar(
+          content: Text("invalid page!!"),
+          duration: Duration(seconds: 3),
+          backgroundColor: Colors.red,
+        );
+      }
+    }
+
+  }
+
 
   void SignOut() async {
     await GoogleSignIn().signOut();

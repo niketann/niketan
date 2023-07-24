@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:niketanstore/api/firebase_api.dart';
 import 'package:niketanstore/firebase_options.dart';
 import 'package:niketanstore/home.dart';
 import 'package:niketanstore/login_page.dart';
@@ -8,6 +9,7 @@ import 'package:niketanstore/login_page.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  await NotoficationServices.intialize();
 
   ///for getting whole array or whole data
 /*  QuerySnapshot snapshot =

@@ -41,7 +41,8 @@ dependencies:
   pinput: ^2.2.31
   google_sign_in: ^6.1.4
   github_sign_in: ^0.0.4
-  flutter_login_facebook: ^1.8.0
+  flutter_login_facebook: any
+  firebase_messaging: ^14.6.5
 
 dev_dependencies:
   flutter_test:
